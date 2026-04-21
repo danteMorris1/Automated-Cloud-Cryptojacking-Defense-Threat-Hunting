@@ -1,8 +1,16 @@
-# Automated-Cloud-Cryptojacking-Defense-Threat-Hunting
-# Project Canary: Cloud-Native Cryptojacking Detection & Auto-Remediation
 
-## 📌 Project Overview
-Project Canary is a fully automated, cloud-native Threat Intelligence and Incident Response pipeline. The objective of this project was to deploy a vulnerable honeypot in a live cloud environment, capture real-world cryptojacking indicators of compromise (IOCs), and engineer an automated kill-switch that isolates compromised infrastructure without human intervention.
+
+### Automated Cloud Cryptojacking Defense & Threat Hunting Project
+![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+![image](https://media.discordapp.net/attachments/1486889265991254076/1496278191688519772/Untitled.png?ex=69e94d28&is=69e7fba8&hm=78c2f2fe04b5db76e2e4c25a3aa39fabe857e0ceff0e4a77cd5a3eb36c7521e5&=&format=webp&quality=lossless&width=1823&height=862)
+![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+
+
+
+### Project Overview![image](https://media.discordapp.net/attachments/1486889265991254076/1496281967313027082/Untitled_1.png?ex=69e950ac&is=69e7ff2c&hm=a5cb24a2cdabec75982f6bf491edf491d5fa502b60c5aaa10e0f8678f0e1d522&=&format=webp&quality=lossless)
+This cloud hooneypot is a fully automated, cloud-native Threat Intelligence and Incident Response pipeline. The objective of this project was to deploy a vulnerable honeypot in a live cloud environment, capture real-world cryptojacking indicators of compromise (IOCs), and engineer an automated kill-switch that isolates compromised infrastructure without human intervention.
+
 
 ## 🏗️ Architecture & Tech Stack
 * **Cloud Infrastructure:** DigitalOcean (Ubuntu 22.04 LTS Droplets)
