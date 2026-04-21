@@ -1,4 +1,4 @@
-# <center>Automated Cloud Cryptojacking Defense & Threat Hunting Project</center>
+<h1 align="center">Automated Cloud Cryptojacking Defense & Threat Hunting Project</h1>
 
 
 ![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
