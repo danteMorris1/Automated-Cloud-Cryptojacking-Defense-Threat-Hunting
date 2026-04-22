@@ -103,11 +103,25 @@ I had set my anomaly detection % to 90%, so I moved it to 30% to trigger the aut
 
 
 2\. **Hunting - Indicator Extraction (IOCs)**
+
+
 ![image](https://media.discordapp.net/attachments/1486889265991254076/1496322633501774024/image_1.webp?ex=69e9768c&is=69e8250c&hm=eb13aaf5e04ce8bd6444c043f58e375516470a1b90deb424072e693a07680ae4&=&format=webp)
+
 
 * Looking at this screenshot from Datadog, you see that Process ID `59444` is running a massive Base64 obfuscated string `0DKgJzzdUj. . .` to bypass standard text-based process monitoring.
 * I used the command `ls -l /proc/59444/exe` to track the malicious process to a temporary folder: `/tmp/0DKgJzzdUj`
 
-![image](https://cdn.discordapp.com/attachments/1486889265991254076/1496322761990340629/image_6_1.png?ex=69e976aa&is=69e8252a&hm=46601d8a571d2b54e720b67abf4bb4dc30bbbbf6766130af4a1b8c2cf61524a0&)
+![image](https://cdn.discordapp.com/attachments/1486889265991254076/1496324451766112357/image_7.png?ex=69e9783d&is=69e826bd&hm=bf21d776185e6be3119344d1d7ef3b48d550141ab2e8a4dcdd5e7849d1488928&)
 
 The Botnet decided to hide in the `tmp` folder as it offers a reliable, low-restriction area for storing and running malicious files without immediate user detection.
+
+3\. **Verification - Packet Sniffing**
+I used tcpdump for live packet analysis. The traffic was intense. The server was not just mining crypto; it was actively spreading. We caught the worm rapidly firing SYN packets to other vulnerable Redis instances (Port 6379) on the 104.x.x.x subnet.
+![image](https://media.discordapp.net/attachments/1486889265991254076/1496324255221285035/image.jpg?ex=69e9780e&is=69e8268e&hm=0f70f2524d9883e9c0bd4709b3f501af47173fcc0fd76bd7992c2684e778aaa0&=&format=webp)
+
+Auto-Remediation: Result Verified
+The Datadog Metric Monitor (configured threshold: 20%) triggered. The alert traveled the Ngrok tunnel, and the SOC Automator script received and validated the JSON payload.
+
+As shown in the final architecture diagram and this terminal screenshot, the kill switch successfully activated, transmitting the power_off API call to DigitalOcean and neutralizing the threat. The mean-time-to-respond was measured in minutes, successfully containing the malware and severing all command-and-control (C2) communication.
+
+![image](https://media.discordapp.net/attachments/1486889265991254076/1487150220138516560/image.png?ex=69e90d92&is=69e7bc12&hm=887fb454d39c78e98fb7622db434558f23c061d4f5e94b285a64e12565c49268&=&format=webp&quality=lossless)
