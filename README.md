@@ -33,6 +33,7 @@ Using Datadog, I built a custom SOC dashboard to visualize the attack in real-ti
 * **Outbound Traffic:** Tracking the telemetry data sent back to the hacker's Command & Control (C2) server.
 
 ![image](https://media.discordapp.net/attachments/1486889265991254076/1496313378296041572/image_4.png?ex=69e96ded&is=69e81c6d&hm=bde1a5a8594efa8000e53b9560c4941d868acc8384582b82376a2c58762983fd&=&format=webp&quality=lossless&width=550&height=276)
+
 (Datadog dashboard showing my widget setup)
 
 ![image](https://media.discordapp.net/attachments/1486889265991254076/1496308458864119859/Untitled_11.png?ex=69e96958&is=69e817d8&hm=3f1355b942ac78218d6661d4799a4a724bed6de49e7236b1f3db35a3faafc606&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
@@ -102,11 +103,11 @@ I had set my anomaly detection % to 90%, so I moved it to 30% to trigger the aut
 
 
 2\. **Hunting - Indicator Extraction (IOCs)**
-![image](https://media.discordapp.net/attachments/1486889265991254076/1487149598395994312/image.png?ex=69e90cfe&is=69e7bb7e&hm=f45138e72771068cdd10d85d50375e946d101807359731917433b8111f3438ed&=&format=webp&quality=lossless)
+![image](https://media.discordapp.net/attachments/1486889265991254076/1496322633501774024/image_1.webp?ex=69e9768c&is=69e8250c&hm=eb13aaf5e04ce8bd6444c043f58e375516470a1b90deb424072e693a07680ae4&=&format=webp)
 
 * Looking at this screenshot from Datadog, you see that Process ID `59444` is running a massive Base64 obfuscated string `0DKgJzzdUj. . .` to bypass standard text-based process monitoring.
 * I used the command `ls -l /proc/59444/exe` to track the malicious process to a temporary folder: `/tmp/0DKgJzzdUj`
 
-![image](https://cdn.discordapp.com/attachments/1486889265991254076/1496321385826615316/image_6.png?ex=69e97562&is=69e823e2&hm=f658c7b195bdba995ed44d47c96dd6b392ed2f9450b079d7b34b58049476dad5&)
+![image](https://cdn.discordapp.com/attachments/1486889265991254076/1496322761990340629/image_6_1.png?ex=69e976aa&is=69e8252a&hm=46601d8a571d2b54e720b67abf4bb4dc30bbbbf6766130af4a1b8c2cf61524a0&)
 
 The Botnet decided to hide in the `tmp` folder as it offers a reliable, low-restriction area for storing and running malicious files without immediate user detection.
