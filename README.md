@@ -1,8 +1,8 @@
 <h1 align="center">Automated Cloud Cryptojacking Defense & Threat Hunting Project</h1>
 
-![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
 ![image](https://media.discordapp.net/attachments/1486889265991254076/1496286203085983815/Untitled_4.png?ex=69e9549e&is=69e8031e&hm=135654b51660dfd5638d6f0faac32bd092dbdd25fcb1b701ae2dda3c7e561b57&=&format=webp&quality=lossless&width=1828&height=864)
-![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
 
 ![image](https://media.discordapp.net/attachments/1486889265991254076/1496281967313027082/Untitled_1.png?ex=69e950ac&is=69e7ff2c&hm=a5cb24a2cdabec75982f6bf491edf491d5fa502b60c5aaa10e0f8678f0e1d522&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
