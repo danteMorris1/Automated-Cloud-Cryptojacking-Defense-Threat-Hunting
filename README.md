@@ -6,7 +6,7 @@
 
 ![image](https://media.discordapp.net/attachments/1486889265991254076/1496281967313027082/Untitled_1.png?ex=69e950ac&is=69e7ff2c&hm=a5cb24a2cdabec75982f6bf491edf491d5fa502b60c5aaa10e0f8678f0e1d522&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-This cloud honeypot is a fully automated, cloud-native Threat Intelligence and Incident Response pipeline. The **objective** of this project was to deploy a vulnerable honeypot in a live cloud environment, capture real-world cryptojacking indicators of compromise (IOCs), and engineer an automated kill-switch that isolates compromised infrastructure *without* human intervention!
+This **live** cloud honeypot project was a fully automated, cloud-native Threat Intelligence and Incident Response pipeline. The **objective** of this project was to deploy a vulnerable honeypot in a live cloud environment, capture **real-world** cryptojacking indicators of compromise (IOCs), and engineer an automated kill-switch that isolates compromised infrastructure *without* human intervention!
 
 ![image](https://media.discordapp.net/attachments/1486889265991254076/1496293621345947778/Untitled_6.png?ex=69e95b87&is=69e80a07&hm=babefbb1505b719629e60ca513cb95ede1132e32a386b0895c4ae5a1a2b05bdf&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
@@ -32,7 +32,11 @@ Using Datadog, I built a custom SOC dashboard to visualize the attack in real-ti
 * **Top Malicious Processes:** Correlating the CPU spike to the exact malware binary name executing the attack.
 * **Outbound Traffic:** Tracking the telemetry data sent back to the hacker's Command & Control (C2) server.
 
+![image](https://media.discordapp.net/attachments/1486889265991254076/1496313378296041572/image_4.png?ex=69e96ded&is=69e81c6d&hm=bde1a5a8594efa8000e53b9560c4941d868acc8384582b82376a2c58762983fd&=&format=webp&quality=lossless&width=550&height=276)
+(Datadog dashboard showing my widget setup)
+
 ![image](https://media.discordapp.net/attachments/1486889265991254076/1496308458864119859/Untitled_11.png?ex=69e96958&is=69e817d8&hm=3f1355b942ac78218d6661d4799a4a724bed6de49e7236b1f3db35a3faafc606&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
 
 This simple python script I built with the help of AI highlights the webhook listener that catches the Datadog alert and executes the API kill command.
 
@@ -85,3 +89,24 @@ if __name__ == '__main__':
 > ⚠️ **WARNING: PROTECT YOUR API KEYS** > If you are replicating this project, **NEVER** hardcode your DigitalOcean API token directly into your scripts or commit it to GitHub. Leaked cloud credentials are scraped by botnets in seconds and will result in thousands of dollars in unauthorized compute charges. [This Microsoft report observed targeted organizations incurred more than **$300,000** in compute fees due to cryptojacking attacks](https://www.microsoft.com/en-us/security/blog/2023/07/25/cryptojacking-understanding-and-defending-against-cloud-compute-resource-abuse/). Gulp. 
 > 
 > Always use environment variables (like a `.env` file) to store your secrets locally.
+
+![image](https://media.discordapp.net/attachments/1486889265991254076/1496315234632077464/Untitled_12.png?ex=69e96fa8&is=69e81e28&hm=453da62525faff5a2ee716e4e4507cd5d1102dc9a4a2e0adb7db7d7dd1c5f8f5&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+Within just 12 hours of exposing the vulnerable Redis instance, a real botnet attacked. My pipeline worked as intended, moving from detection to neutralization.
+
+1\. **Detection - The Threat is Active**
+The Datadog Metric Monitor detected the anomaly. the user CPU usage spiked and held firm around 32% as the malware throttled its usage to blend in. 
+![image](https://cdn.discordapp.com/attachments/1486889265991254076/1496316119009591296/image.png?ex=69e9707a&is=69e81efa&hm=19b59a145c9f743dc92ca94d3f36f70ce064fb67b9bc69ea9bb4958ed17f29da&)
+
+I had set my anomaly detection % to 90%, so I moved it to 30% to trigger the auto-remediation script. Whilst doing this, I did a forensic hunt to see where the process was being hidden.
+
+
+2\. **Hunting - Indicator Extraction (IOCs)**
+![image](https://media.discordapp.net/attachments/1486889265991254076/1487149598395994312/image.png?ex=69e90cfe&is=69e7bb7e&hm=f45138e72771068cdd10d85d50375e946d101807359731917433b8111f3438ed&=&format=webp&quality=lossless)
+
+* Looking at this screenshot from Datadog, you see that Process ID `59444` is running a massive Base64 obfuscated string `0DKgJzzdUj. . .` to bypass standard text-based process monitoring.
+* I used the command `ls -l /proc/59444/exe` to track the malicious process to a temporary folder: `/tmp/0DKgJzzdUj`
+
+![image](https://cdn.discordapp.com/attachments/1486889265991254076/1496321385826615316/image_6.png?ex=69e97562&is=69e823e2&hm=f658c7b195bdba995ed44d47c96dd6b392ed2f9450b079d7b34b58049476dad5&)
+
+The Botnet decided to hide in the `tmp` folder as it offers a reliable, low-restriction area for storing and running malicious files without immediate user detection.
