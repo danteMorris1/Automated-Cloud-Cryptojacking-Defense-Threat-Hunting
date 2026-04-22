@@ -4,11 +4,11 @@
 ![image](https://media.discordapp.net/attachments/1486889265991254076/1496286203085983815/Untitled_4.png?ex=69e9549e&is=69e8031e&hm=135654b51660dfd5638d6f0faac32bd092dbdd25fcb1b701ae2dda3c7e561b57&=&format=webp&quality=lossless&width=1828&height=864)
 ![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-![image](https://media.discordapp.net/attachments/1486889265991254076/1496281967313027082/Untitled_1.png?ex=69e950ac&is=69e7ff2c&hm=a5cb24a2cdabec75982f6bf491edf491d5fa502b60c5aaa10e0f8678f0e1d522&=&format=webp&quality=lossless)
+![image](https://media.discordapp.net/attachments/1486889265991254076/1496281967313027082/Untitled_1.png?ex=69e950ac&is=69e7ff2c&hm=a5cb24a2cdabec75982f6bf491edf491d5fa502b60c5aaa10e0f8678f0e1d522&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 This cloud honeypot is a fully automated, cloud-native Threat Intelligence and Incident Response pipeline. The **objective** of this project was to deploy a vulnerable honeypot in a live cloud environment, capture real-world cryptojacking indicators of compromise (IOCs), and engineer an automated kill-switch that isolates compromised infrastructure *without* human intervention!
 
-![image](https://media.discordapp.net/attachments/1486889265991254076/1496293621345947778/Untitled_6.png?ex=69e95b87&is=69e80a07&hm=babefbb1505b719629e60ca513cb95ede1132e32a386b0895c4ae5a1a2b05bdf&=&format=webp&quality=lossless)
+![image](https://media.discordapp.net/attachments/1486889265991254076/1496293621345947778/Untitled_6.png?ex=69e95b87&is=69e80a07&hm=babefbb1505b719629e60ca513cb95ede1132e32a386b0895c4ae5a1a2b05bdf&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 * **Cloud Infrastructure -** DigitalOcean (Droplet VM running Ubuntu 22.04 LTS)
 * **Containerization -** Docker (Intentionally vulnerable Redis 5.0.3 deployment)
@@ -16,15 +16,15 @@ This cloud honeypot is a fully automated, cloud-native Threat Intelligence and I
 * **Automation & Orchestration -** Python (Flask, Requests), DigitalOcean API
 * **Networking -** Ngrok (Secure tunneling for local SOC webhook ingestion)
 
-## ⚙️ The Attack & Defense Lifecycle
+![image](https://media.discordapp.net/attachments/1486889265991254076/1496299297141030952/Untitled_9.png?ex=69e960d0&is=69e80f50&hm=1cf4e46dac7d5e8bddbee11d546d75dbe4ee4c58ef2a62db36c20315a980968d&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 1. **The "Honeypot" -** An outdated, unauthenticated Redis database container is exposed to the public internet via port `6379`.
 2. **The Compromise:** Automated botnets scan the IPv4 space, detect the open port, and execute a remote code execution (RCE) payload to drop a cryptocurrency miner (e.g., `xmrig` or `kdevtmpfsi`).
-3. **The Watchtower:** The Datadog Agent, running at the kernel level, detects a massive spike in `system.cpu.user` (>90%) and irregular outbound network traffic (`system.net.bytes_sent`) communicating with external mining pools.
+3. **The Watchtower:** The Datadog Agent, running at the *kernel* level in the droplet, detects a massive spike in `system.cpu.user` (>90%) and irregular outbound network traffic (`system.net.bytes_sent`) communicating with external mining pools.
 4. **The Trigger:** A custom Datadog Metric Monitor evaluates the anomaly. If the CPU remains spiked for a sustained 5-minute window, it triggers a `CRITICAL` alert and fires a JSON webhook.
 5. **The Kill-Switch:** A local Python-based SOC script receives the webhook via an Ngrok tunnel. It parses the alert, authenticates with the DigitalOcean API, and instantly issues a `power_off` command to the compromised Droplet, neutralizing the threat and preventing unauthorized cloud compute billing.
 
-## 📊 Threat Intelligence Dashboard
+![image](https://media.discordapp.net/attachments/1486889265991254076/1496307394202832956/Untitled_10.png?ex=69e9685a&is=69e816da&hm=13e8266ea6e44ab0b8c7e60ad43470ecb418972f36adecf4a66c489a50dfcc17&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 Using Datadog, I built a custom SOC dashboard to visualize the attack in real-time. Key metrics tracked include:
 
@@ -32,27 +32,56 @@ Using Datadog, I built a custom SOC dashboard to visualize the attack in real-ti
 * **Top Malicious Processes:** Correlating the CPU spike to the exact malware binary name executing the attack.
 * **Outbound Traffic:** Tracking the telemetry data sent back to the hacker's Command & Control (C2) server.
 
-## 💻 The Auto-Remediation Code (Python Snippet)
+![image](https://media.discordapp.net/attachments/1486889265991254076/1496308458864119859/Untitled_11.png?ex=69e96958&is=69e817d8&hm=3f1355b942ac78218d6661d4799a4a724bed6de49e7236b1f3db35a3faafc606&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-This snippet highlights the webhook listener that catches the Datadog alert and executes the API kill command.
+This simple python script I built with the help of AI highlights the webhook listener that catches the Datadog alert and executes the API kill command.
+
+If you're interested in using it yourself, replace DO_TOKEN and DROPLET_ID with your personal DigitalOcean Token & ID. You would also have to establish an **Ngrok** tunnel to route the external Datadog webhook alerts into *your* personal local environment.
 
 ```python
+from flask import Flask, request, jsonify
+import requests
+
+app = Flask(__name__)
+
+# DigitalOcean credentials
+DO_TOKEN = "YOUR DIGITALOCEAN TOKEN HERE"
+DROPLET_ID = "DROPLET ID HERE"
+
 @app.route('/datadog-alert', methods=['POST'])
 def handle_alert():
-    print("[!!!] CRITICAL ALERT: Cryptomining behavior detected. Initiating kill switch...")
+    print("\n[!!!] CRITICAL ALERT RECEIVED FROM DATADOG [!!!]")
+    print("Cryptomining behavior detected. Initiating immediate kill switch...")
     
     headers = {
         "Authorization": f"Bearer {DO_TOKEN}",
         "Content-Type": "application/json"
     }
+    
+    # API payload to power off the server
     data = {"type": "power_off"}
     
+    # Sends kill command directly to DigitalOcean
+    print("Transmitting power_off command to DigitalOcean API...")
     response = requests.post(
-        f"[https://api.digitalocean.com/v2/droplets/](https://api.digitalocean.com/v2/droplets/){DROPLET_ID}/actions", 
+        f"https://api.digitalocean.com/v2/droplets/{DROPLET_ID}/actions", 
         headers=headers, 
         json=data
     )
     
     if response.status_code == 201:
-        return "Droplet successfully powered down. Threat neutralized.", 200
+        print("[SUCCESS] Droplet successfully powered down. Threat neutralized.\n")
+        return jsonify({"status": "success", "message": "Droplet killed"}), 200
+    else:
+        print(f"[ERROR] Failed to kill droplet. API responded with status: {response.status_code}\n")
+        return jsonify({"status": "error", "message": "Failed to kill droplet"}), 500
+
+if __name__ == '__main__':
+    # Running the Flask app on port 5000
+    print("SOC Automator is running & listening for Datadog webhooks on port 5000...")
+    app.run(port=5000)
 ```
+
+> ⚠️ **WARNING: PROTECT YOUR API KEYS** > If you are replicating this project, **NEVER** hardcode your DigitalOcean API token directly into your scripts or commit it to GitHub. Leaked cloud credentials are scraped by botnets in seconds and will result in thousands of dollars in unauthorized compute charges. [This Microsoft report observed targeted organizations incurred more than **$300,000** in compute fees due to cryptojacking attacks](https://www.microsoft.com/en-us/security/blog/2023/07/25/cryptojacking-understanding-and-defending-against-cloud-compute-resource-abuse/). Gulp. 
+> 
+> Always use environment variables (like a `.env` file) to store your secrets locally.
