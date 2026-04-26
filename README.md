@@ -23,7 +23,7 @@ This **live** cloud honeypot project is a fully automated, cloud-native Threat I
 4. **The Trigger:** A custom Datadog Metric Monitor evaluates the anomaly. If the CPU remains spiked for a sustained 5-minute window, it triggers a `CRITICAL` alert and fires a JSON webhook.
 5. **The Kill-Switch:** A local Python-based SOC script receives the webhook via an Ngrok tunnel. It parses the alert, authenticates with the DigitalOcean API, and instantly issues a `power_off` command to the compromised Droplet, neutralizing the threat and preventing unauthorized cloud compute billing.
 
-![image](.assets/Untitled_10.webp)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+![image](./assets/Untitled_10.webp)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 Using Datadog, I built a custom SOC dashboard to visualize the attack in real-time. Key metrics tracked include:
 
@@ -35,7 +35,7 @@ Using Datadog, I built a custom SOC dashboard to visualize the attack in real-ti
 
 (Datadog dashboard showing my widget setup)
 
-![image](.assets/Untitled_11.webp)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+![image](./assets/Untitled_11.webp)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 
 This simple python script I built with the help of AI highlights the webhook listener that catches the Datadog alert and executes the API kill command.
@@ -123,4 +123,4 @@ The Datadog Metric Monitor (configured to threshold: 25%) triggered. The alert t
 
 As shown in the final architecture diagram and this terminal screenshot, the kill switch successfully activated, transmitting the `power_off` API call to DigitalOcean and neutralizing the threat. The mean-time-to-respond was measured in minutes, successfully containing the malware and severing all command-and-control (C2) communication.
 
-![image](https://media.discordapp.net/attachments/1486889265991254076/1487150220138516560/image.png?ex=69e90d92&is=69e7bc12&hm=887fb454d39c78e98fb7622db434558f23c061d4f5e94b285a64e12565c49268&=&format=webp&quality=lossless)
+![image](./assets/AutoKillWebhook.webp)
