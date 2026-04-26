@@ -8,8 +8,7 @@
 
 This **live** cloud honeypot project is a fully automated, cloud-native Threat Intelligence and Incident Response pipeline. The **objective** of this project was to deploy a vulnerable honeypot in a live cloud environment, capture **real-world** cryptojacking indicators of compromise (IOCs), and engineer an automated kill-switch that isolates compromised infrastructure *without* human intervention!
 
-![image](https://media.discordapp.net/attachments/1486889265991254076/1496293621345947778/Untitled_6.png?ex=69e95b87&is=69e80a07&hm=babefbb1505b719629e60ca513cb95ede1132e32a386b0895c4ae5a1a2b05bdf&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
-
+![image](./assets/Untitled_4.webp)
 * **Cloud Infrastructure -** DigitalOcean (Droplet VM running Ubuntu 22.04 LTS)
 * **Containerization -** Docker (Intentionally vulnerable Redis 5.0.3 deployment)
 * **Telemetry & SIEM -** Datadog (Live Process & Network Monitoring, Custom Dashboards, Webhooks)
