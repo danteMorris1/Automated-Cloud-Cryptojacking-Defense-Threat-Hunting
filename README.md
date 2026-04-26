@@ -15,7 +15,7 @@ This **live** cloud honeypot project is a fully automated, cloud-native Threat I
 * **Automation & Orchestration -** Python (Flask, Requests), DigitalOcean API
 * **Networking -** Ngrok (Secure tunneling for local SOC webhook ingestion)
 
-![image](https://media.discordapp.net/attachments/1486889265991254076/1496299297141030952/Untitled_9.png?ex=69e960d0&is=69e80f50&hm=1cf4e46dac7d5e8bddbee11d546d75dbe4ee4c58ef2a62db36c20315a980968d&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+![image](./assets/Untitled_6.webp)
 
 1. **The "Honeypot" -** An outdated, unauthenticated Redis database container is exposed to the public internet via port `6379`.
 2. **The Compromise:** Automated botnets scan the IPv4 space, detect the open port, and execute a remote code execution (RCE) payload to drop a cryptocurrency miner (e.g., `xmrig` or `kdevtmpfsi`).
