@@ -8,14 +8,14 @@
 
 This **live** cloud honeypot project is a fully automated, cloud-native Threat Intelligence and Incident Response pipeline. The **objective** of this project was to deploy a vulnerable honeypot in a live cloud environment, capture **real-world** cryptojacking indicators of compromise (IOCs), and engineer an automated kill-switch that isolates compromised infrastructure *without* human intervention!
 
-![image](./assets/Untitled_4.webp)
+![image](./assets/Untitled_6.webp)
 * **Cloud Infrastructure -** DigitalOcean (Droplet VM running Ubuntu 22.04 LTS)
 * **Containerization -** Docker (Intentionally vulnerable Redis 5.0.3 deployment)
 * **Telemetry & SIEM -** Datadog (Live Process & Network Monitoring, Custom Dashboards, Webhooks)
 * **Automation & Orchestration -** Python (Flask, Requests), DigitalOcean API
 * **Networking -** Ngrok (Secure tunneling for local SOC webhook ingestion)
 
-![image](./assets/Untitled_6.webp)
+![image](./assets/Untitled_9.webp)
 
 1. **The "Honeypot" -** An outdated, unauthenticated Redis database container is exposed to the public internet via port `6379`.
 2. **The Compromise:** Automated botnets scan the IPv4 space, detect the open port, and execute a remote code execution (RCE) payload to drop a cryptocurrency miner (e.g., `xmrig` or `kdevtmpfsi`).
