@@ -23,7 +23,7 @@ This **live** cloud honeypot project is a fully automated, cloud-native Threat I
 4. **The Trigger:** A custom Datadog Metric Monitor evaluates the anomaly. If the CPU remains spiked for a sustained 5-minute window, it triggers a `CRITICAL` alert and fires a JSON webhook.
 5. **The Kill-Switch:** A local Python-based SOC script receives the webhook via an Ngrok tunnel. It parses the alert, authenticates with the DigitalOcean API, and instantly issues a `power_off` command to the compromised Droplet, neutralizing the threat and preventing unauthorized cloud compute billing.
 
-![image](https://media.discordapp.net/attachments/1486889265991254076/1496307394202832956/Untitled_10.png?ex=69e9685a&is=69e816da&hm=13e8266ea6e44ab0b8c7e60ad43470ecb418972f36adecf4a66c489a50dfcc17&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+![image](.assets/Untitled_10.webp)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 Using Datadog, I built a custom SOC dashboard to visualize the attack in real-time. Key metrics tracked include:
 
@@ -35,7 +35,7 @@ Using Datadog, I built a custom SOC dashboard to visualize the attack in real-ti
 
 (Datadog dashboard showing my widget setup)
 
-![image](https://media.discordapp.net/attachments/1486889265991254076/1496308458864119859/Untitled_11.png?ex=69e96958&is=69e817d8&hm=3f1355b942ac78218d6661d4799a4a724bed6de49e7236b1f3db35a3faafc606&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+![image](.assets/Untitled_11.webp)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 
 This simple python script I built with the help of AI highlights the webhook listener that catches the Datadog alert and executes the API kill command.
