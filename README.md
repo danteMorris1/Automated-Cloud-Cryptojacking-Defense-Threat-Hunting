@@ -1,21 +1,21 @@
 <h1 align="center">Automated Cloud Cryptojacking Defense & Threat Hunting Project</h1>
 
 
-![image](./assets/Untitled_4.webp)
+![pipeline](./assets/Untitled_4.webp)
 
 
-![image](https://media.discordapp.net/attachments/1486889265991254076/1496281967313027082/Untitled_1.png?ex=69e950ac&is=69e7ff2c&hm=a5cb24a2cdabec75982f6bf491edf491d5fa502b60c5aaa10e0f8678f0e1d522&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+![ProjectOverview](https://media.discordapp.net/attachments/1486889265991254076/1496281967313027082/Untitled_1.png?ex=69e950ac&is=69e7ff2c&hm=a5cb24a2cdabec75982f6bf491edf491d5fa502b60c5aaa10e0f8678f0e1d522&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 This **live** cloud honeypot project is a fully automated, cloud-native Threat Intelligence and Incident Response pipeline. The **objective** of this project was to deploy a vulnerable honeypot in a live cloud environment, capture **real-world** cryptojacking indicators of compromise (IOCs), and engineer an automated kill-switch that isolates compromised infrastructure *without* human intervention!
 
-![image](./assets/Untitled_6.webp)
+![Architecture](./assets/Untitled_6.webp)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 * **Cloud Infrastructure -** DigitalOcean (Droplet VM running Ubuntu 22.04 LTS)
 * **Containerization -** Docker (Intentionally vulnerable Redis 5.0.3 deployment)
 * **Telemetry & SIEM -** Datadog (Live Process & Network Monitoring, Custom Dashboards, Webhooks)
 * **Automation & Orchestration -** Python (Flask, Requests), DigitalOcean API
 * **Networking -** Ngrok (Secure tunneling for local SOC webhook ingestion)
 
-![image](./assets/Untitled_9.webp)
+![image](./assets/Untitled_9.webp)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 1. **The "Honeypot" -** An outdated, unauthenticated Redis database container is exposed to the public internet via port `6379`.
 2. **The Compromise:** Automated botnets scan the IPv4 space, detect the open port, and execute a remote code execution (RCE) payload to drop a cryptocurrency miner (e.g., `xmrig` or `kdevtmpfsi`).
@@ -116,6 +116,7 @@ The botnet decided to hide in the `tmp` folder as it offers a reliable, low-rest
 
 **3\. Verification - Packet Sniffing**
 I used tcpdump for live packet analysis. The traffic was intense. The server was not *just* mining crypto; it was actively spreading. I caught the worm rapidly firing SYN packets to other vulnerable Redis instances ``(Port 6379)`` on the ``104.x.x.x`` subnet.
+
 ![image](./assets/2.webp)
 
 **4\. Auto-Remediation: Result Verified**
