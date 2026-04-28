@@ -4,7 +4,7 @@
 ![pipeline](./assets/Untitled_4.webp)
 
 
-![ProjectOverview](./assets/Untitled_1.webp)
+![ProjectOverview](./assets/Untitled_1.webp)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 This **live** cloud honeypot project is a fully automated, cloud-native Threat Intelligence and Incident Response pipeline. The **objective** of this project was to deploy a vulnerable honeypot in a live cloud environment, capture **real-world** cryptojacking indicators of compromise (IOCs), and engineer an automated kill-switch that isolates compromised infrastructure *without* human intervention!
 
@@ -90,7 +90,7 @@ if __name__ == '__main__':
 > 
 > Always use environment variables (like a `.env` file) to store your secrets locally.
 
-![image](https://media.discordapp.net/attachments/1486889265991254076/1496315234632077464/Untitled_12.png?ex=69e96fa8&is=69e81e28&hm=453da62525faff5a2ee716e4e4507cd5d1102dc9a4a2e0adb7db7d7dd1c5f8f5&=&format=webp&quality=lossless)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+![image](./assets/Untitled_12.webp)![image](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 Within just 12 hours of exposing the vulnerable Redis instance, a real botnet attacked. My pipeline worked as intended, moving from detection to neutralization.
 
