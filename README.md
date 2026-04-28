@@ -31,7 +31,7 @@ Using Datadog, I built a custom SOC dashboard to visualize the attack in real-ti
 * **Top Malicious Processes:** Correlating the CPU spike to the exact malware binary name executing the attack.
 * **Outbound Traffic:** Tracking the telemetry data sent back to the hacker's Command & Control (C2) server.
 
-![image](https://media.discordapp.net/attachments/1486889265991254076/1496313378296041572/image_4.png?ex=69e96ded&is=69e81c6d&hm=bde1a5a8594efa8000e53b9560c4941d868acc8384582b82376a2c58762983fd&=&format=webp&quality=lossless&width=550&height=276)
+![image](./assets/image_4.webp)
 
 (Datadog dashboard showing my widget setup)
 
