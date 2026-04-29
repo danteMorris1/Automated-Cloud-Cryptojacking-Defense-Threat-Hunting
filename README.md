@@ -104,7 +104,7 @@ I had set my anomaly detection % to 90%, so I moved it to 30% to trigger the aut
 **2\. Hunting - Indicator Extraction (IOCs)**
 
 
-![image](./assets/image_4.webp)
+![image](./assets/datadogGraph.webp)
 
 
 * Looking at this screenshot from Datadog, you see that Process ID `59444` is running a massive Base64 obfuscated string `0DKgJzzdUj. . .` to bypass standard text-based process monitoring.
