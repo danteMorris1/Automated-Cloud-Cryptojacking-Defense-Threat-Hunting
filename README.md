@@ -122,4 +122,4 @@ The Datadog Metric Monitor (configured to threshold: 25%) triggered. The alert t
 
 As shown in the final architecture diagram and this terminal screenshot, the kill switch successfully activated, transmitting the `power_off` API call to DigitalOcean and neutralizing the threat. The mean-time-to-respond was measured in minutes, successfully containing the malware and severing all command-and-control (C2) communication.
 
-![image](./assets/AutoKillWebhook.webp)
+![image](./assets/AutoKillWebhook.png)
