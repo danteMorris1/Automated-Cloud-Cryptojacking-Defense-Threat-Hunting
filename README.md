@@ -96,7 +96,7 @@ Within just 12 hours of exposing the vulnerable Redis instance, a real botnet at
 
 1\. **Detection - The Threat is Active**
 The Datadog Metric Monitor detected the anomaly. the user CPU usage spiked and held firm around 32% as the malware throttled its usage to blend in. 
-![image](https://cdn.discordapp.com/attachments/1486889265991254076/1496316119009591296/image.png?ex=69e9707a&is=69e81efa&hm=19b59a145c9f743dc92ca94d3f36f70ce064fb67b9bc69ea9bb4958ed17f29da&)
+![image](./assets/datadogGraph.webp)
 
 I had set my anomaly detection % to 90%, so I moved it to 30% to trigger the auto-remediation script. Whilst doing this, I did a forensic hunt to see where the process was being hidden.
 
@@ -104,13 +104,11 @@ I had set my anomaly detection % to 90%, so I moved it to 30% to trigger the aut
 **2\. Hunting - Indicator Extraction (IOCs)**
 
 
-![image](./assets/datadogGraph.webp)
+![image](./assets/1.webp)
 
 
 * Looking at this screenshot from Datadog, you see that Process ID `59444` is running a massive Base64 obfuscated string `0DKgJzzdUj. . .` to bypass standard text-based process monitoring.
 * I used the command `ls -l /proc/59444/exe` to track the malicious process to a temporary folder: `/tmp/0DKgJzzdUj`
-
-![image](./assets/1.webp)
 
 The botnet decided to hide in the `tmp` folder as it offers a reliable, low-restriction area for storing and running malicious files without immediate user detection.
 
