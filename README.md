@@ -1,4 +1,4 @@
-<h1 align="center">Automated Cloud Cryptojacking Defense & Threat Hunting Project</h1>
+<h1 align="center">SOAR Cloud Cryptojacking Defense & Threat Hunting Project</h1>
 
 
 ![pipeline](./assets/Untitled_4.webp)
